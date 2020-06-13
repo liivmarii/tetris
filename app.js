@@ -4,7 +4,7 @@ function createCells() {
     let tetrisCell = document.createElement('div')
     tetrisCell.id = 'tetris-cell'
 
-    document.getElementById('tetris-container').appendChild(tetrisCell)
+    document.querySelector('#tetris-container').appendChild(tetrisCell)
 
 }
 
@@ -17,14 +17,63 @@ document.addEventListener('DOMContentLoaded', () => {
     // Tetromino code
     const grid = document.querySelector('#tetris-container')
     let cells = Array.from(document.querySelectorAll('#tetris-cell'))
-    const tetrominoWidth = 10
+    const width = 10
+
+    const jTetromino = [
+        [1, 2, width + 1, width * 2 + 1],
+        [width, width + 1, width + 2, width * 2 + 2],
+        [1, width + 1, width * 2 + 1, width * 2],
+        [0, width, width + 1, width + 2]
+    ]
+
+    const lTetromino = [
+        [0, 1, width + 1, width * 2 + 1],
+        [2, width + 2, width + 1, width],
+        [1, width + 1, width * 2 + 1, width * 2 + 2],
+        [width, width + 1, width + 2, width * 2]
+    ]
+
+    const sTetromino = [
+        [width * 2, width * 2 + 1, width + 1, width + 2],
+        [0, width, width + 1, width * 2 + 1],
+        [width * 2, width * 2 + 1, width + 1, width + 2],
+        [0, width, width + 1, width * 2 + 1]
+    ]
+
+    const zTetromino = [
+        [width, width + 1, width * 2 + 1, width * 2 + 2],
+        [2, width + 2, width + 1, width * 2 + 1],
+        [width, width + 1, width * 2 + 1, width * 2 + 2],
+        [2, width + 2, width + 1, width * 2 + 1]
+    ]
+
+    const oTetromino = [
+        [0, 1, width, width + 1],
+        [0, 1, width, width + 1],
+        [0, 1, width, width + 1],
+        [0, 1, width, width + 1]
+    ]
+
+    const tTetromino = [
+        [1, width, width + 1, width + 2],
+        [1, width + 1, width + 2, width * 2 + 1],
+        [width, width + 1, width + 2, width * 2 + 1],
+        [1, width, width + 1, width * 2 + 1]
+    ]
+
+    const iTetromino = [
+        [1, width + 1, width * 2 + 1, width * 3 + 1],
+        [width, width + 1, width + 2, width + 3],
+        [1, width + 1, width * 2 + 1, width * 3 + 1],
+        [width, width + 1, width + 2, width + 3]
+    ]
+
+    const tetrominoShapes = [jTetromino, lTetromino, sTetromino, zTetromino, oTetromino, tTetromino, iTetromino]
 
     // Displaying the game score
     const scoreDisplay = document.querySelector('#score')
 
     // Start / pause game
     const startPause = document.querySelector('#start-btn')
-
-
 
 })
