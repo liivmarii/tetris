@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    timeId = setInterval(moveDown, 1000)
+
     const scoreDisplay = document.querySelector('#score')
     const startBtn = document.querySelector('#start-btn')
     const width = 10
@@ -105,24 +107,63 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let randomTetromino = Math.floor(Math.random() * tetrominoShapes.length)
 
-    let currentTetromino = tetrominoShapes[randomTetromino][currentRotation]
+    let current = tetrominoShapes[randomTetromino][currentRotation]
 
-    // Draw random current tetromino
+    // Draw and undraw random current tetromino
     function draw() {
-        currentTetromino.forEach(index => {
+        current.forEach(index => {
             tetrisSquares[currentPosition + index].classList.add('tetromino')
         })
     }
 
-    // Undraw random current tetromino
     function undraw() {
-        currentTetromino.forEach(index => {
+        current.forEach(index => {
             tetrisSquares[currentPosition + index].classList.remove('tetromino')
         })
     }
 
-    // Move current tetromino down
-    timeId = setInterval(moveDown, 100)
+    // Move current tetromino around
+
+    function moveLeft() {
+        undraw()
+        
+        const isAtLeftEdge = current.some(index => (currentPosition + index) % width === 0)
+
+        if (!isAtLeftEdge) currentPosition -= 1
+
+        if (current.some(index => tetrisSquares[currentPosition + index].classList.contains('taken'))) {
+            currentPosition += 1
+        }
+
+        draw()
+    }
+
+    function moveRight() {
+        undraw()
+
+        const isAtRightEdge = current.some(index => (currentPosition + index) % width === width - 1)
+
+        if (!isAtRightEdge) currentPosition += 1
+
+        if (current.some(index => tetrisSquares[currentPosition + index].classList.contains('taken'))) {
+            currentPosition -= 1
+        }
+
+        draw()
+    }
+
+    function rotate() {
+        undraw()
+
+        currentRotation ++
+
+        // If rotation completes, return to initial
+        if (currentRotation == current.length) currentRotation = INITIAL_ROTATION
+
+        current = tetrominoShapes[randomTetromino][currentRotation]
+
+        draw()
+    }
 
     function moveDown() {
         undraw()
@@ -131,14 +172,29 @@ document.addEventListener('DOMContentLoaded', () => {
         freeze()
     }
 
+    // Keyboard controls
+    function control(e) {
+        if(e.keyCode === 37 || e.keyCode === 65) moveLeft()
+        if(e.keyCode === 39 || e.keyCode === 68) moveRight()
+        if(e.keyCode === 38 || e.keyCode === 87) rotate()
+    }
+
+    function pushDown(e) {
+        if(e.keyCode === 83 || e.keyCode === 40) moveDown()
+    }
+
+    document.addEventListener('keyup', control)
+    document.addEventListener('keyup', pushDown)
+    document.addEventListener('keydown', pushDown)
+
     // Freeze tetromino if...
     function freeze() {
-        if (currentTetromino.some(index => tetrisSquares[currentPosition + index + width].classList.contains('taken'))) {
-            currentTetromino.forEach(index => tetrisSquares[currentPosition + index].classList.add('taken'))
+        if (current.some(index => tetrisSquares[currentPosition + index + width].classList.contains('taken'))) {
+            current.forEach(index => tetrisSquares[currentPosition + index].classList.add('taken'))
 
             //New Current tetromino
             randomTetromino = Math.floor(Math.random() * tetrominoShapes.length)
-            currentTetromino = tetrominoShapes[randomTetromino][currentRotation]
+            current = tetrominoShapes[randomTetromino][currentRotation]
             currentPosition = INITIAL_POSITION
             draw()
         }
