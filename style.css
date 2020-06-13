@@ -12,9 +12,12 @@ body {
   overflow: hidden;
 }
 
-.grid {
+.container, .grid, .mini-grid {
   display: flex;
   flex-wrap: wrap;
+}
+
+.grid {
   height: 400px;
   width: 200px;
   background: lightblue;
@@ -26,6 +29,16 @@ body {
 
 .tetromino {
   background: lightcoral;
+}
+
+.mini-grid {
+  height: 80px;
+  width: 80px;
+  background: lightcyan;
+}
+.mini-grid div {
+  height: 20px;
+  width: 20px;
 }
 
 /*# sourceMappingURL=style.css.map */

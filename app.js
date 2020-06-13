@@ -17,6 +17,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let squares = Array.from(document.querySelectorAll('.grid div'))
 
+    // Populating mini grid
+    for (let square = 0; square < 16; square++) {
+        let newSquare = document.createElement('div')
+        document.querySelector('.mini-grid').appendChild(newSquare)
+    }
+
     // Score tally
     const scoreDisplay = document.querySelector('#score')
 
