@@ -1,26 +1,11 @@
-#container, #tetris-grid, #mini-grid {
-  display: flex;
-  flex-wrap: wrap;
+* {
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
-#tetris-grid {
-  height: 400px;
-  width: 200px;
-  background: lightblue;
-}
-#tetris-grid div {
-  height: 20px;
-  width: 20px;
-}
-
-#mini-grid {
-  width: 80px;
-  height: 80px;
-  background: lightcoral;
-}
-
-.tetromino {
-  background: teal;
+html, body {
+  height: 100%;
+  width: 100%;
 }
 
 /*# sourceMappingURL=style.css.map */
