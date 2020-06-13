@@ -73,17 +73,17 @@ document.addEventListener('DOMContentLoaded', () => {
     ]
 
     const sTetromino = [
-        [width + 1, width + 2, width * 2, width * 2 + 1],
-        [0, width, width + 1, width * 2 + 1],
-        [width + 1, width + 2, width * 2, width * 2 + 1],
-        [0, width, width + 1, width * 2 + 1]
+        [1, 2, width, width + 1],
+        [1, width + 1, width + 2, width * 2 + 2],
+        [1, 2, width, width + 1],
+        [1, width + 1, width + 2, width * 2 + 2]
     ]
 
     const zTetromino = [
-        [width, width + 1, width * 2 + 1, width * 2 + 2],
-        [2, width + 1, width + 2, width * 2 + 1],
-        [width, width + 1, width * 2 + 1, width * 2 + 2],
-        [2, width + 1, width + 2, width * 2 + 1]
+        [0, 1, width + 1, width + 2],
+        [1, width, width + 1, width * 2],
+            [0, 1, width + 1, width + 2],
+        [1, width, width + 1, width * 2]
     ]
 
     const tetrominoShapes = [
@@ -100,7 +100,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const INITIAL_POSITION = 4
     let currentPosition = INITIAL_POSITION
 
-    let currentTetromino = tetrominoShapes[0][0]
+    const INITIAL_ROTATION = 0
+    let currentRotation = INITIAL_ROTATION
+
+    let randomTetromino = Math.floor(Math.random() * tetrominoShapes.length)
+
+    let currentTetromino = tetrominoShapes[randomTetromino][currentRotation]
 
     // Draw random current tetromino
     function draw() {
@@ -109,5 +114,35 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     }
 
-    draw()
+    // Undraw random current tetromino
+    function undraw() {
+        currentTetromino.forEach(index => {
+            tetrisSquares[currentPosition + index].classList.remove('tetromino')
+        })
+    }
+
+    // Move current tetromino down
+    timeId = setInterval(moveDown, 100)
+
+    function moveDown() {
+        undraw()
+        currentPosition += width
+        draw()
+        freeze()
+    }
+
+    // Freeze tetromino if...
+    function freeze() {
+        if (currentTetromino.some(index => tetrisSquares[currentPosition + index + width].classList.contains('taken'))) {
+            currentTetromino.forEach(index => tetrisSquares[currentPosition + index].classList.add('taken'))
+
+            //New Current tetromino
+            randomTetromino = Math.floor(Math.random() * tetrominoShapes.length)
+            currentTetromino = tetrominoShapes[randomTetromino][currentRotation]
+            currentPosition = INITIAL_POSITION
+            draw()
+        }
+    }
+
+    moveDown()
 })
