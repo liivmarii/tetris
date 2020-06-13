@@ -92,6 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentRotation = INITIAL_ROTATION
 
     // Select a random tetromino
+    let nextRandom = 0
     let random = Math.floor(Math.random() * theTetrominoes.length)
 
     let current = theTetrominoes[random][currentRotation]
@@ -137,10 +138,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             currentPosition = INITIAL_POSITION
             currentRotation = INITIAL_ROTATION
-            random = Math.floor(Math.random() * theTetrominoes.length)
+
+            random = nextRandom
+            nextRandom = Math.floor(Math.random() * theTetrominoes.length)
             current = theTetrominoes[random][currentRotation]
 
             draw()
+            displayShape()
         }
     }
 
@@ -187,6 +191,40 @@ document.addEventListener('DOMContentLoaded', () => {
         current = theTetrominoes[random][currentRotation]
 
         draw()
+    }
+
+    // Fortuneteller for next in line tetromino
+    const displaySquares = document.querySelectorAll('.mini-grid div')
+    const displayWidth = 4
+    let displayIndex = 0
+
+    // The tetrominoes without rotations
+    const upNextTetrominoes = [
+        // iTetromino
+        [1, displayWidth + 1, displayWidth * 2 + 1, displayWidth * 3 + 1]
+        // jTetromino[0]
+        [1, displayWidth + 1, displayWidth * 2, displayWidth * 2 + 1],
+        //lTetromino[0]
+        [1, displayWidth + 1, displayWidth * 2 + 1, displayWidth * 2 + 2],
+        //oTetromino[0]
+        [0, 1, displayWidth, displayWidth + 1],
+        //sTetromino[0]
+        [1, 2, displayWidth, displayWidth + 1],
+        //tTetromino[0]
+        [0, displayWidth, displayWidth + 1, displayWidth * 2],
+        //zTetromino[0]
+        [0, 1, displayWidth + 1, displayWidth + 2]
+    ]
+
+    // Display the next in line tetromino shape in mini-grid
+    function displayShape() {
+        displaySquares.forEach(square => {
+            square.classList.remove('tetromino')
+        })
+
+        upNextTetrominoes[nextRandom].forEach(index => {
+            displaySquares[displayIndex + index].classList.add('tetromino')
+        })
     }
 
 })
