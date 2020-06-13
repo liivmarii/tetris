@@ -1,27 +1,37 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // Populating tetris and mini grids in DOM
-    let newSquare
+    const tetrisGrid = document.querySelector('#tetris-grid')
+    const miniGrid = document.querySelector('#mini-grid')
+    let square
+    let tetrisSquares = Array.from(document.querySelectorAll('#tetris-grid div'))
+    let miniSquares = Array.from(document.querySelectorAll('#mini-grid div'))
+    const scoreDisplay = document.querySelector('#score')
+    const startBtn = document.querySelector('#start-btn')
+    const width = 10
 
+
+    // Populating tetris and mini grids in DOM
     function tetrisSquare() {
-        let square = document.createElement('div')
-        document.querySelector('#tetris-grid').appendChild(square)
+        let newSquare = document.createElement('div')
+        tetrisGrid.appendChild(newSquare)
     }
 
-    for (newSquare = 0; newSquare < 200; newSquare++) tetrisSquare()
+    for (square = 0; square < 200; square++) tetrisSquare()
 
     function takenTetrisSquare() {
-        let square = document.createElement('div')
+        let newSquare = document.createElement('div')
         square.classList.add('taken')
-        document.querySelector('#tetris-grid').appendChild(square)
+        tetrisGrid.appendChild(newSquare)
     }
 
-    for (newSquare = 0; newSquare < 10; newSquare++) takenTetrisSquare()
+    for (square = 0; square < 10; square++) takenTetrisSquare()
 
     function miniSquare() {
-        let square = document.createElement('div')
-        document.querySelector('#mini-grid').appendChild(square)
+        let newSquare = document.createElement('div')
+        miniGrid.appendChild(newSquare)
     }
 
-    for (newSquare = 0; newSquare < 16; newSquare++) miniSquare()
+    for (square = 0; square < 16; square++) miniSquare()
+
+
 })
