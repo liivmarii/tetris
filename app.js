@@ -1,4 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Displaying the game score
+    const scoreDisplay = document.querySelector('#score')
+
+    // Start / pause game
+    const startPause = document.querySelector('#start-btn')
+
     // Creates a single div inside of the tetris grid
     function createSquare() {
         let tetrisSquare = document.createElement('div')
@@ -153,20 +159,17 @@ document.addEventListener('DOMContentLoaded', () => {
         draw()
     }
 
+    function rotate() {
+
+    }
+
     // Assign functions to keyCodes
     function control(e) {
         if(e.keyCode === 37 || e.keyCode === 65) moveLeft()
-        else if (e.keyCode === 38 || e.keyCode === 87) {/* rotate*/}
+        else if (e.keyCode === 38 || e.keyCode === 87) rotate()
         else if (e.keyCode === 39 || e.keyCode === 68) moveRight()
         else if (e.keyCode === 40 || e.keyCode === 83) moveDown()
     }
     document.addEventListener('keyup', control)
-    document.addEventListener('keydown', control)
-
-    // Displaying the game score
-    const scoreDisplay = document.querySelector('#score')
-
-    // Start / pause game
-    const startPause = document.querySelector('#start-btn')
 
 })
