@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     }
 
-    // Move current tetromino down
+    // Move current tetromino down every second
     timeId = setInterval(moveTetrominoDown, 1000)
 
     function moveTetrominoDown() {
@@ -123,6 +123,44 @@ document.addEventListener('DOMContentLoaded', () => {
             drawTetromino()
         }
     }
+
+    // Move tetromino around in grid
+    function moveLeft() {
+        undrawTetromino()
+
+        const isALeftEdge = currentTetromino.some(index => (currentPosition + index) % width === 0)
+
+        if(!isALeftEdge) currentPosition -= 1
+
+        if(currentTetromino.some(index => squares[currentPosition + index].classList.contains('taken'))) {
+            currentPosition += 1
+        }
+
+        drawTetromino()
+    }
+
+    function moveRight() {
+        undrawTetromino()
+
+        const isAtRightEdge = currentTetromino.some(index => (currentPosition + index) % width === width - 1)
+
+        if (!isAtRightEdge) currentPosition+= 1
+
+        if (currentTetromino.some(index => squares[currentPosition + index].classList.contains('taken'))) {
+            currentPosition -= 1
+        }
+
+        drawTetromino()
+    }
+
+    // Assign functions to keyCodes
+    function control(e) {
+        if(e.keyCode === 37) moveLeft()
+        else if (e.keyCode === 38) {/* rotate*/}
+        else if (e.keyCode === 39) moveRight()
+        else if (e.keyCode === 40) moveDown()
+    }
+    document.addEventListener('keyup', control)
 
     // Displaying the game score
     const scoreDisplay = document.querySelector('#score')
