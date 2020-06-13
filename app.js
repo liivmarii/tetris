@@ -89,44 +89,44 @@ document.addEventListener('DOMContentLoaded', () => {
     setCurrentTetromino()
 
     // Draw random tetromino
-    function drawTetromino() {
+    function draw() {
         currentTetromino.forEach(index => {
             squares[currentPosition + index].classList.add('tetromino')
         })
     }
 
     // Undraw random tetromino
-    function undrawTetromino() {
+    function undraw() {
         currentTetromino.forEach(index => {
             squares[currentPosition + index].classList.remove('tetromino')
         })
     }
 
     // Move current tetromino down every second
-    timeId = setInterval(moveTetrominoDown, 1000)
+    timeId = setInterval(moveDown, 1000)
 
-    function moveTetrominoDown() {
-        undrawTetromino()
+    function moveDown() {
+        undraw()
         currentPosition += width
-        drawTetromino()
-        freezeTetromino()
+        draw()
+        freeze()
     }
 
-    moveTetrominoDown()
+    moveDown()
 
     // Freeze current tetromino and set new random tetromino
-    function freezeTetromino() {
+    function freeze() {
         if (currentTetromino.some(index => squares[currentPosition + index + width].classList.contains('taken'))) {
             currentTetromino.forEach(index => squares[currentPosition + index].classList.add('taken'))
 
             setCurrentTetromino()
-            drawTetromino()
+            draw()
         }
     }
 
     // Move tetromino around in grid
     function moveLeft() {
-        undrawTetromino()
+        undraw()
 
         const isALeftEdge = currentTetromino.some(index => (currentPosition + index) % width === 0)
 
@@ -136,11 +136,11 @@ document.addEventListener('DOMContentLoaded', () => {
             currentPosition += 1
         }
 
-        drawTetromino()
+        draw()
     }
 
     function moveRight() {
-        undrawTetromino()
+        undraw()
 
         const isAtRightEdge = currentTetromino.some(index => (currentPosition + index) % width === width - 1)
 
@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
             currentPosition -= 1
         }
 
-        drawTetromino()
+        draw()
     }
 
     // Assign functions to keyCodes
@@ -161,6 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
         else if (e.keyCode === 40) moveDown()
     }
     document.addEventListener('keyup', control)
+    document.addEventListener('keydown', control)
 
     // Displaying the game score
     const scoreDisplay = document.querySelector('#score')
