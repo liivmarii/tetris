@@ -1,37 +1,40 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    const tetrisGrid = document.querySelector('#tetris-grid')
-    const miniGrid = document.querySelector('#mini-grid')
-    let square
-    const tetrisSquares = Array.from(document.querySelectorAll('#tetris-grid div'))
-    const miniSquares = Array.from(document.querySelectorAll('#mini-grid div'))
     const scoreDisplay = document.querySelector('#score')
     const startBtn = document.querySelector('#start-btn')
     const width = 10
 
-
     // Populating tetris and mini grids in DOM
-    function tetrisSquare() {
+    const tetrisGrid = document.querySelector('#tetris-grid')
+    const miniGrid = document.querySelector('#mini-grid')
+
+    function newTetrisSquare() {
         let newSquare = document.createElement('div')
         tetrisGrid.appendChild(newSquare)
     }
 
-    for (square = 0; square < 200; square++) tetrisSquare()
+    let tetrisSquare
+    for (tetrisSquare = 0; tetrisSquare < 200; tetrisSquare++) newTetrisSquare()
 
-    function takenTetrisSquare() {
+    function newTakenSquare() {
         let newSquare = document.createElement('div')
-        square.classList.add('taken')
+        newSquare.classList.add('taken')
         tetrisGrid.appendChild(newSquare)
     }
 
-    for (square = 0; square < 10; square++) takenTetrisSquare()
+    let takenSquare
+    for (takenSquare = 0; takenSquare < 10; takenSquare++) newTakenSquare()
 
-    function miniSquare() {
+    function newMiniSquare() {
         let newSquare = document.createElement('div')
         miniGrid.appendChild(newSquare)
     }
 
-    for (square = 0; square < 16; square++) miniSquare()
+    let miniSquare
+    for (miniSquare = 0; miniSquare < 16; miniSquare++) newMiniSquare()
+
+    const tetrisSquares = Array.from(document.querySelectorAll('#tetris-grid div'))
+    const miniSquares = Array.from(document.querySelectorAll('#mini-grid div'))
 
     // Tetromino shapes
     const iTetromino = [
@@ -93,5 +96,18 @@ document.addEventListener('DOMContentLoaded', () => {
         zTetromino
     ]
 
-    //
+    // Current tetromino shape
+    const INITIAL_POSITION = 4
+    let currentPosition = INITIAL_POSITION
+
+    let currentTetromino = tetrominoShapes[0][0]
+
+    // Draw random current tetromino
+    function draw() {
+        currentTetromino.forEach(index => {
+            tetrisSquares[currentPosition + index].classList.add('tetromino')
+        })
+    }
+
+    draw()
 })
