@@ -1,16 +1,20 @@
-// Creates a single div inside of the tetris-container in dom
-function createCells() {
-
-    let tetrisCell = document.createElement('div')
-    document.querySelector('#tetris-container').appendChild(tetrisCell)
-
-}
-
 document.addEventListener('DOMContentLoaded', () => {
+    // Creates a single div inside of the tetris-container in dom
+    function createSquare() {
+        let tetrisSquare = document.createElement('div')
+        document.querySelector('#tetris-container').appendChild(tetrisSquare)
+    }
 
-    // Fills the tetris container with cells
-    let newCell;
-    for (newCell = 0; newCell < 200; newCell++) createCells()
+    function createTakenSquare() {
+        let tetrisSquare = document.createElement('div')
+        tetrisSquare.classList.add('taken')
+        document.querySelector('#tetris-container').appendChild(tetrisSquare)
+    }
+
+    // Fills the tetris container with squares
+    let newSquare;
+    for (newSquare = 0; newSquare < 200; newSquare++) createSquare()
+    for (newSquare = 0; newSquare < 10; newSquare++) createTakenSquare()
 
     // Tetromino code
     const grid = document.querySelector('#tetris-container')
