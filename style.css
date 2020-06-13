@@ -8,4 +8,17 @@ html, body {
   width: 100%;
 }
 
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  height: 400px;
+  width: 200px;
+  background: lightblue;
+}
+.grid div {
+  height: 20px;
+  width: 20px;
+  background: lightcoral;
+}
+
 /*# sourceMappingURL=style.css.map */
