@@ -160,7 +160,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function rotate() {
+        undraw()
 
+        currentRotation ++
+
+        // If tetromino is fully rotated, move to beginning of array
+        if (currentRotation === currentTetromino.length) currentRotation = 0
+
+        currentTetromino = tetrominoShapes[randomTetromino][currentRotation]
+
+        draw()
     }
 
     // Assign functions to keyCodes
