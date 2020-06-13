@@ -3,15 +3,15 @@
   flex-wrap: wrap;
   height: 400px;
   width: 200px;
-  background: yellow;
+  background: lightblue;
 }
-#tetris-container #tetris-cell {
+#tetris-container div {
   height: 20px;
   width: 20px;
 }
 
 .tetromino {
-  background: blue;
+  background: lightcoral;
 }
 
 /*# sourceMappingURL=style.css.map */

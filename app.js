@@ -2,8 +2,6 @@
 function createCells() {
 
     let tetrisCell = document.createElement('div')
-    tetrisCell.id = 'tetris-cell'
-
     document.querySelector('#tetris-container').appendChild(tetrisCell)
 
 }
@@ -16,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Tetromino code
     const grid = document.querySelector('#tetris-container')
-    let squares = Array.from(document.querySelectorAll('#tetris-cell'))
+    let squares = Array.from(document.querySelectorAll('#tetris-container div'))
     const width = 10
 
     const jTetromino = [
@@ -70,23 +68,37 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const tetrominoShapes = [jTetromino, lTetromino, sTetromino, zTetromino, oTetromino, tTetromino, iTetromino]
 
-    let currentPosition = 4
+    let currentPosition
+    let currentRotation
+    let randomTetromino
+    let currentTetromino
 
     // Randomly select tetromino in its first rotation
-    let randomTetromino = Math.floor(Math.random()*tetrominoShapes.length)
-    console.log(randomTetromino)
-    let currentTetromino = tetrominoShapes[randomTetromino][0]
+    function setCurrentTetromino() {
+        currentPosition = 4
+        currentRotation = 0
+        randomTetromino = Math.floor(Math.random()*tetrominoShapes.length)
+        console.log(randomTetromino)
+        currentTetromino = tetrominoShapes[randomTetromino][currentRotation]
+    }
 
-    // Tetromino drawings
-    function draw() {
+    setCurrentTetromino()
+
+    // Draw random tetromino
+    function drawTetromino() {
         currentTetromino.forEach(index => {
             squares[currentPosition + index].classList.add('tetromino')
         })
     }
 
-    draw()
+    drawTetromino()
 
-
+    // Undraw random tetromino
+    function undrawTetromino() {
+        currentTetromino.forEach(index => {
+            squares[currentPosition + index].classList.remove('tetromino')
+        })
+    }
 
     // Displaying the game score
     const scoreDisplay = document.querySelector('#score')
