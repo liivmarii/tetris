@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Creates a single div inside of the tetris-container in dom
+    // Creates a single div inside of the tetris grid
     function createSquare() {
         let tetrisSquare = document.createElement('div')
         document.querySelector('#tetris-container').appendChild(tetrisSquare)
@@ -11,12 +11,12 @@ document.addEventListener('DOMContentLoaded', () => {
         document.querySelector('#tetris-container').appendChild(tetrisSquare)
     }
 
-    // Fills the tetris container with squares
+    // Fills the tetris grid with squares
     let newSquare;
     for (newSquare = 0; newSquare < 200; newSquare++) createSquare()
     for (newSquare = 0; newSquare < 10; newSquare++) createTakenSquare()
 
-    // Tetromino code
+    // Tetromino shapes
     const grid = document.querySelector('#tetris-container')
     let squares = Array.from(document.querySelectorAll('#tetris-container div'))
     const width = 10
@@ -95,13 +95,33 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     }
 
-    drawTetromino()
-
     // Undraw random tetromino
     function undrawTetromino() {
         currentTetromino.forEach(index => {
             squares[currentPosition + index].classList.remove('tetromino')
         })
+    }
+
+    // Move current tetromino down
+    timeId = setInterval(moveTetrominoDown, 1000)
+
+    function moveTetrominoDown() {
+        undrawTetromino()
+        currentPosition += width
+        drawTetromino()
+        freezeTetromino()
+    }
+
+    moveTetrominoDown()
+
+    // Freeze current tetromino and set new random tetromino
+    function freezeTetromino() {
+        if (currentTetromino.some(index => squares[currentPosition + index + width].classList.contains('taken'))) {
+            currentTetromino.forEach(index => squares[currentPosition + index].classList.add('taken'))
+
+            setCurrentTetromino()
+            drawTetromino()
+        }
     }
 
     // Displaying the game score
