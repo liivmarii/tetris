@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Tetromino code
     const grid = document.querySelector('#tetris-container')
-    let cells = Array.from(document.querySelectorAll('#tetris-cell'))
+    let squares = Array.from(document.querySelectorAll('#tetris-cell'))
     const width = 10
 
     const jTetromino = [
@@ -69,6 +69,24 @@ document.addEventListener('DOMContentLoaded', () => {
     ]
 
     const tetrominoShapes = [jTetromino, lTetromino, sTetromino, zTetromino, oTetromino, tTetromino, iTetromino]
+
+    let currentPosition = 4
+
+    // Randomly select tetromino in its first rotation
+    let randomTetromino = Math.floor(Math.random()*tetrominoShapes.length)
+    console.log(randomTetromino)
+    let currentTetromino = tetrominoShapes[randomTetromino][0]
+
+    // Tetromino drawings
+    function draw() {
+        currentTetromino.forEach(index => {
+            squares[currentPosition + index].classList.add('tetromino')
+        })
+    }
+
+    draw()
+
+
 
     // Displaying the game score
     const scoreDisplay = document.querySelector('#score')
